@@ -15,11 +15,19 @@ export default function Home() {
               MX
             </div>
             <div>
-              <p className="text-sm font-semibold text-muted-foreground">Menux</p>
-              <p className="text-xl font-semibold text-foreground">Restaurant OS</p>
+              <p className="text-sm font-semibold text-muted-foreground">
+                Menux
+              </p>
+              <p className="text-xl font-semibold text-foreground">
+                Restaurant OS
+              </p>
             </div>
           </div>
-          <Button asChild variant="ghost" className="rounded-full border border-border">
+          <Button
+            asChild
+            variant="ghost"
+            className="rounded-full border border-border"
+          >
             <Link href="/contact" className="inline-flex items-center gap-2">
               Contact us <ArrowRight className="h-4 w-4" />
             </Link>
@@ -33,10 +41,13 @@ export default function Home() {
               AI-powered control - start free
             </div>
             <h1 className="text-4xl font-semibold leading-tight text-foreground md:text-5xl">
-              Sign in or create a Menux account to run your restaurant beautifully.
+              Sign in or create a Menux account to run your restaurant
+              beautifully.
             </h1>
             <p className="max-w-xl text-lg text-muted-foreground">
-              Menux is the all-in-one, AI-assisted restaurant OS - simple onboarding, reliable day-to-day ops, and instant insights for menus, orders, and tables.
+              Menux is the all-in-one, AI-assisted restaurant OS - simple
+              onboarding, reliable day-to-day ops, and instant insights for
+              menus, orders, and tables.
             </p>
             <div className="flex flex-wrap gap-3">
               <Button size="lg" className="rounded-full px-6" asChild>
@@ -45,7 +56,12 @@ export default function Home() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full px-6" asChild>
+              <Button
+                size="lg"
+                variant="outline"
+                className="rounded-full px-6"
+                asChild
+              >
                 <Link href="/(public)/customer">Preview customer ordering</Link>
               </Button>
             </div>
@@ -55,12 +71,16 @@ export default function Home() {
             <CardHeader>
               <CardTitle>Log in or create an account</CardTitle>
               <p className="text-sm text-muted-foreground">
-                Use email + password or sign in with Google. Your account is free to try - no commitment.
+                Use email + password or sign in with Google. Your account is
+                free to try - no commitment.
               </p>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground" htmlFor="email">
+                <label
+                  className="text-sm font-medium text-foreground"
+                  htmlFor="email"
+                >
                   Email
                 </label>
                 <div className="relative">
@@ -74,11 +94,14 @@ export default function Home() {
                   />
                 </div>
               </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground" htmlFor="password">
-                    Password
-                  </label>
-                  <div className="relative">
+              <div className="space-y-2">
+                <label
+                  className="text-sm font-medium text-foreground"
+                  htmlFor="password"
+                >
+                  Password
+                </label>
+                <div className="relative">
                   <Lock className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="password"
@@ -89,7 +112,8 @@ export default function Home() {
                   />
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  New here? Use any email to create your workspace and explore the AI dashboard.
+                  New here? Use any email to create your workspace and explore
+                  the AI dashboard.
                 </p>
               </div>
 
@@ -104,7 +128,9 @@ export default function Home() {
               </div>
 
               <div className="rounded-xl border border-dashed border-border bg-muted/50 p-3 text-sm text-muted-foreground">
-                Lightning-fast sign-in with Google; any email works if you prefer. Your trial includes full AI features for menus, orders, and analytics.
+                Lightning-fast sign-in with Google; any email works if you
+                prefer. Your trial includes full AI features for menus, orders,
+                and analytics.
               </div>
             </CardContent>
           </Card>
