@@ -30,12 +30,11 @@ export function AnalyticsAssistant() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!prompt.trim()) return;
-    const nextMessages = [...messages, { role: "user", content: prompt }];
-    setMessages(nextMessages);
+    setMessages((prev) => [...prev, { role: "user", content: prompt }]);
     setPrompt("");
     setIsLoading(true);
     const response = await generateAIResponse(prompt);
-    setMessages([...nextMessages, { role: "assistant", content: response }]);
+    setMessages((prev) => [...prev, { role: "assistant", content: response }]);
     setIsLoading(false);
   };
 
