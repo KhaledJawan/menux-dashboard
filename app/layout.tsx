@@ -3,13 +3,9 @@ import { GeistSans, GeistMono } from "geist/font";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
-const geistSans = GeistSans({
-  variable: "--font-geist-sans",
-});
-
-const geistMono = GeistMono({
-  variable: "--font-geist-mono",
-});
+// GeistSans/GeistMono from the geist package are already pre-configured NextFont objects
+const geistSans = GeistSans;
+const geistMono = GeistMono;
 
 export const metadata: Metadata = {
   title: "Menux Admin",
