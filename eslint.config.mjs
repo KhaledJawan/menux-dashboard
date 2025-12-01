@@ -9,6 +9,10 @@ const eslintConfig = defineConfig([
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
+    "**/.next/**",
+    "restaurant-app/.next/**",
+    "restaurant-app/node_modules/**",
+    "restaurant-app/.turbo/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
