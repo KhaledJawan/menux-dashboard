@@ -3,7 +3,7 @@ import { ArrowRight, Lock, Mail, Sparkles, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-
+//hi
 export default function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-background via-white to-[#f1f2f6]">
