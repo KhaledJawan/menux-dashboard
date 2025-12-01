@@ -55,3 +55,17 @@ export type DashboardStat = {
   progress?: number;
   icon?: string;
 };
+
+export type LocaleCode = "en" | "de" | "fr" | "it" | "es" | string;
+
+export type TranslationInput = {
+  name: string;
+  description?: string;
+};
+
+export type MenuItemTranslations = Record<LocaleCode, TranslationInput>;
+
+export type RestaurantLocaleConfig = {
+  defaultLocale: LocaleCode;
+  supportedLocales: LocaleCode[];
+};

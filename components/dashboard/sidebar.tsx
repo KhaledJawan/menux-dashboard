@@ -13,6 +13,8 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useLanguage } from "@/lib/i18n/language-context";
+import { languageKeys } from "@/lib/i18n/keys";
 
 type NavItem = {
   href: string;
@@ -21,16 +23,17 @@ type NavItem = {
 };
 
 export const navItems: NavItem[] = [
-  { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
-  { href: "/dashboard/menu", label: "Menu", icon: ShoppingBag },
-  { href: "/dashboard/orders", label: "Orders", icon: Home },
-  { href: "/dashboard/tables", label: "Tables", icon: TableIcon },
-  { href: "/dashboard/customers", label: "Customers", icon: Users },
-  { href: "/dashboard/settings", label: "Settings", icon: Settings },
+  { href: "/dashboard", label: languageKeys.nav.overview, icon: LayoutDashboard },
+  { href: "/dashboard/menu", label: languageKeys.nav.menu, icon: ShoppingBag },
+  { href: "/dashboard/orders", label: languageKeys.nav.orders, icon: Home },
+  { href: "/dashboard/tables", label: languageKeys.nav.tables, icon: TableIcon },
+  { href: "/dashboard/customers", label: languageKeys.nav.customers, icon: Users },
+  { href: "/dashboard/settings", label: languageKeys.nav.settings, icon: Settings },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   return (
     <aside className="fixed left-0 top-0 z-30 hidden h-screen w-60 flex-col bg-[#0b0b12] text-white md:flex">
@@ -69,7 +72,7 @@ export function Sidebar() {
               >
                 <Icon className="h-4 w-4" />
               </span>
-              <span>{item.label}</span>
+              <span>{t(item.label)}</span>
             </Link>
           );
         })}

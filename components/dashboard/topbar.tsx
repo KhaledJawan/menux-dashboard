@@ -15,6 +15,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/language-context";
+import { languageKeys } from "@/lib/i18n/keys";
 
 type TopbarProps = {
   title?: string;
@@ -25,19 +27,19 @@ type TopbarProps = {
 export function Topbar({ title, description, onMenuClick }: TopbarProps) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+  const { t } = useLanguage();
 
   const pageTitle = useMemo(() => {
     if (title) return title;
-    if (pathname.includes("/menu")) return "Menu";
-    if (pathname.includes("/orders")) return "Orders";
-    if (pathname.includes("/tables")) return "Tables";
-    if (pathname.includes("/settings")) return "Settings";
-    return "Dashboard";
-  }, [pathname, title]);
+    if (pathname.includes("/menu")) return t(languageKeys.nav.menu);
+    if (pathname.includes("/orders")) return t(languageKeys.nav.orders);
+    if (pathname.includes("/tables")) return t(languageKeys.nav.tables);
+    if (pathname.includes("/settings")) return t(languageKeys.nav.settings);
+    if (pathname.includes("/customers")) return t(languageKeys.nav.customers);
+    return t(languageKeys.nav.overview);
+  }, [pathname, title, t]);
 
-  const pageDescription =
-    description ||
-    "Live pulse of your restaurant—orders, revenue, and guest flow in one view.";
+  const pageDescription = description || t(languageKeys.topbar.subtitle);
 
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
 

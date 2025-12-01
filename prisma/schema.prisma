@@ -1,0 +1,104 @@
+// Prisma schema for multilingual restaurant menu content.
+// This is a scaffold; adjust provider/url in prisma/ schema if/when wiring a real database.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Restaurant {
+  id              String          @id @default(cuid())
+  name            String
+  slug            String          @unique
+  defaultLocale   String          @default("en")
+  supportedLocales String[]
+  adminPasswordHash String?
+  menuItems       MenuItem[]
+  categories      Category[]
+  users           User[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model Category {
+  id           String                @id @default(cuid())
+  restaurant   Restaurant            @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  baseCode     String?
+  isActive     Boolean               @default(true)
+  translations CategoryTranslation[]
+  menuItems    MenuItem[]
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+}
+
+model CategoryTranslation {
+  id         String   @id @default(cuid())
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+  locale     String
+  name       String
+
+  @@unique([categoryId, locale])
+}
+
+model MenuItem {
+  id           String               @id @default(cuid())
+  restaurant   Restaurant           @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  category     Category?            @relation(fields: [categoryId], references: [id])
+  categoryId   String?
+  baseCode     String?
+  price        Decimal              @db.Decimal(10, 2)
+  isActive     Boolean              @default(true)
+  translations MenuItemTranslation[]
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+}
+
+model MenuItemTranslation {
+  id        String   @id @default(cuid())
+  menuItem  MenuItem @relation(fields: [menuItemId], references: [id])
+  menuItemId String
+  locale    String
+  name      String
+  description String?
+
+  @@unique([menuItemId, locale])
+}
+
+model DictionaryConcept {
+  id    String   @id @default(cuid())
+  key   String   @unique
+  type  String?
+  translations DictionaryTranslation[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DictionaryTranslation {
+  id         String             @id @default(cuid())
+  concept    DictionaryConcept  @relation(fields: [conceptId], references: [id])
+  conceptId  String
+  locale     String
+  value      String
+
+  @@index([locale, value])
+  @@unique([conceptId, locale, value])
+}
+
+model User {
+  id            String      @id @default(cuid())
+  email         String      @unique
+  name          String
+  role          String      @default("staff")
+  permissions   Json?
+  restaurant    Restaurant? @relation(fields: [restaurantId], references: [id])
+  restaurantId  String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}

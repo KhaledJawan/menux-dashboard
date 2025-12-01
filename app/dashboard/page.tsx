@@ -7,6 +7,7 @@ import { RevenueChart } from "@/components/dashboard/revenue-chart";
 import { AnalyticsAssistant } from "@/components/dashboard/analytics-assistant";
 import { Card } from "@/components/ui/card";
 import { useDashboard } from "@/lib/hooks/useDashboard";
+import { mockSessionUser } from "@/lib/auth/mock-session";
 
 export default function DashboardPage() {
   const { data, isLoading } = useDashboard();
@@ -23,10 +24,16 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <OverviewCards stats={data.stats} />
+      {mockSessionUser.permissions.canViewRevenue && <OverviewCards stats={data.stats} />}
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <RevenueChart data={data.revenue} />
+        {mockSessionUser.permissions.canViewRevenue ? (
+          <RevenueChart data={data.revenue} />
+        ) : (
+          <Card className="h-72 flex items-center justify-center text-muted-foreground">
+            Revenue hidden for your role.
+          </Card>
+        )}
         <OrdersSummaryChart data={data.ordersSummary} />
       </div>
 
