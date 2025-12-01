@@ -61,19 +61,19 @@ export async function PATCH(
         );
       }
     }
-    (existing as typeof mockMenu[number]).translations = {
-      ...(existing as typeof mockMenu[number]).translations,
+    existing.translations = {
+      ...(existing.translations ?? {}),
       ...translations,
     };
   }
 
   if (price !== undefined) {
-    (existing as typeof mockMenu[number]).price = price;
+    existing.price = price;
   }
   if (isActive !== undefined) {
-    (existing as typeof mockMenu[number]).available = isActive;
+    existing.available = isActive;
   }
-  (existing as typeof mockMenu[number]).updatedAt = new Date().toISOString();
+  existing.updatedAt = new Date().toISOString();
 
   return NextResponse.json({ item: existing });
 }

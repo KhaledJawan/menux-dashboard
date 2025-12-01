@@ -11,12 +11,14 @@ export async function GET(
   const locale = searchParams.get("locale") ?? DEFAULT_LOCALE;
 
   const items = mockMenu.map((item) => {
-    const translations = (item as typeof mockMenu[number]).translations ?? {};
+    const translations = item.translations ?? {};
     const fallback = translations[DEFAULT_LOCALE];
-    const localized = translations[locale] ?? fallback ?? {
-      name: item.name,
-      description: item.description,
-    };
+    const localized =
+      translations[locale] ??
+      fallback ?? {
+        name: item.name,
+        description: item.description,
+      };
     return {
       id: item.id,
       category: item.category,

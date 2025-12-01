@@ -9,6 +9,9 @@ export type MenuItem = {
   tags?: string[];
   available: boolean;
   updatedAt: string;
+  translations?: MenuItemTranslations;
+  defaultLocale?: LocaleCode;
+  supportedLocales?: LocaleCode[];
 };
 
 export type OrderStatus =
