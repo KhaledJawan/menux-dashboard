@@ -1,11 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { mockMenu } from "@/lib/mock/mockMenu";
 import { DEFAULT_LOCALE, isSupportedLocale } from "@/lib/locales";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { restaurantSlug: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ restaurantSlug: string }> }
 ) {
+  const { restaurantSlug } = await params;
   const { searchParams } = new URL(request.url);
   const locale = searchParams.get("locale") ?? DEFAULT_LOCALE;
 
@@ -27,7 +28,7 @@ export async function GET(
   });
 
   return NextResponse.json({
-    restaurant: params.restaurantSlug,
+    restaurant: restaurantSlug,
     locale: isSupportedLocale(locale) ? locale : DEFAULT_LOCALE,
     items,
   });

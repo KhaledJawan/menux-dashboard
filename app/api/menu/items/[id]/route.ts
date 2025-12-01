@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { mockMenu } from "@/lib/mock/mockMenu";
 import { DEFAULT_LOCALE, isSupportedLocale } from "@/lib/locales";
@@ -20,16 +20,17 @@ const updateSchema = z.object({
 });
 
 export async function PATCH(
-  _request: Request,
-  { params }: { params: { id: string } }
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const body = await _request.json();
   const parsed = updateSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
   }
 
-  const existing = mockMenu.find((m) => m.id === params.id);
+  const existing = mockMenu.find((m) => m.id === id);
   if (!existing) {
     return NextResponse.json({ error: "Item not found" }, { status: 404 });
   }

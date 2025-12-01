@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { mockUsers } from "@/lib/mock/mockUsers";
 import { mockSessionUser } from "@/lib/auth/mock-session";
@@ -6,7 +6,11 @@ import { resolvePermissions, Role } from "@/lib/auth/permissions";
 
 let adminPasswordHash: string | null = null;
 
-export async function PATCH(request: Request, { params }: { params: { id: string } }) {
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
   if (!mockSessionUser.permissions.canManageUsers && mockSessionUser.role !== "admin") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
@@ -21,7 +25,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
     return NextResponse.json({ error: "Invalid admin password" }, { status: 401 });
   }
 
-  const user = mockUsers.find((u) => u.id === params.id);
+  const user = mockUsers.find((u) => u.id === id);
   if (!user) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   if (role) {
