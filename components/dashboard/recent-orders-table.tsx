@@ -1,7 +1,7 @@
 "use client";
 
 import { format } from "date-fns";
-import { Badge } from "@/components/ui/badge";
+import { Badge, type BadgeProps } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -12,16 +12,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
-import type { Order } from "@/types";
+import type { Order, OrderStatus } from "@/types";
 
-const statusTone: Record<Order["status"], string> = {
+type BadgeVariant = NonNullable<BadgeProps["variant"]>;
+
+const statusTone: Record<OrderStatus, BadgeVariant> = {
   pending: "muted",
   accepted: "info",
   in_progress: "info",
   ready: "warning",
   served: "success",
   paid: "success",
-  cancelled: "destructive",
+  cancelled: "warning",
 };
 
 export function RecentOrdersTable({ orders }: { orders: Order[] }) {
